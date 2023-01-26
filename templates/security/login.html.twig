@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}OpenTodo - Connexion{% endblock %}
 
 {% block body %}
 <section class="container">
@@ -25,9 +25,11 @@
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <button class="btn btn-lg btn-primary" type="submit">
-                    Se connecter
-                </button>
+                <div class="text-center mt-3">
+                    <button class="btn btn-lg btn-danger" type="submit">
+                        Se connecter
+                    </button>
+                </div>
             </form>
         </div>
     </div>

@@ -13,9 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskController extends AbstractController
 {
     #[Route('/task', name: 'app_add_task')]
-    public function addTask(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/task/{id}/edit', name: 'app_edit_task')]
+    public function addTask(Task $task = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $task = new Task();
+        if (!$task) {
+            $task = new Task();
+        }
         $form = $this->createForm(TaskFormType::class, $task);
         $form->handleRequest($request);
 
@@ -40,7 +43,27 @@ class TaskController extends AbstractController
         }
         return $this->render('task/createTask.html.twig', [
             'CreateTaskForm' => $form->createView(),
+            'editMode'=> $task-> getId() !== null
         ]);
+    }
+
+    #[Route('/task/{id}/delete', name: 'app_delete_task')]
+    public function deleteTask($id, EntityManagerInterface $entityManager)
+    {
+        // Récupérer la tâche à partir de la base de données en utilisant l'ID fourni en paramètre
+        $task = $entityManager->getRepository(Task::class)->find($id);
+
+        // Vérifier si la tâche existe
+        if (!$task) {
+            throw $this->createNotFoundException('La tâche n\'existe pas');
+        }
+
+        // Supprimer la tâche de la base de données
+        $entityManager->remove($task);
+        $entityManager->flush();
+
+        // Rediriger l'utilisateur vers la page de liste des tâches
+        return $this->redirectToRoute('app_index');
     }
 }
 ?>

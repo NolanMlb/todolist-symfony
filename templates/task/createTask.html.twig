@@ -1,23 +1,28 @@
 {% extends 'base.html.twig' %}
+{% form_theme CreateTaskForm 'bootstrap_5_layout.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}OpenTodo - {% if editMode %} Modifier une tâche {% else %} Créer une tâche {% endif %}{% endblock %}
 
 {% block body %}
-<section class="container">
-    <div class="row">
-        <div class="col">
-            <h1 class="h3 mb-3 font-weight-normal">Créez une nouvelle tâche</h1>
-            {{ form_start(CreateTaskForm) }}
-                {{ form_row(CreateTaskForm.name, {'label': false,'attr': {'placeholder': 'Nom*'}} ) }}
-                {{ form_row(CreateTaskForm.description, {'label': false,'attr': {'placeholder': 'Description*'}} ) }}
-                {{ form_row(CreateTaskForm.status, {'label': false }) }}
-                {{ form_row(CreateTaskForm.image, {'label': false, 'multipart': true, 'required': false }) }}
-                {{ form_row(CreateTaskForm.endDate, {'label': false, 'attr': {'placeholder': 'Date de fin de validité*'}}) }}
-                <button type="submit" class="btn btn-lg btn-primary">
-                    Créer
-                </button>
-            {{ form_end(CreateTaskForm) }}
+    <section class="container">
+        <div class="text-center">
+            <h1 class="h3 mb-3 font-weight-normal">{% if editMode %} Modifier la tache {% else %} Créez une nouvelle tâche {% endif %}</h1>
         </div>
-    </div>
-</section>
+        {{ form_start(CreateTaskForm) }}
+            {{ form_row(CreateTaskForm.name, {'label': false,'attr': {'placeholder': 'Nom*'}} ) }}
+            {{ form_row(CreateTaskForm.description, {'label': false,'attr': {'placeholder': 'Description*'}} ) }}
+            {{ form_row(CreateTaskForm.status, {'label': false }) }}
+            {{ form_row(CreateTaskForm.image, {'label': false, 'multipart': true, 'required': false }) }}
+            {{ form_row(CreateTaskForm.endDate, {'label': false, 'attr': {'placeholder': 'Date de fin de validité*'}}) }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-danger">
+                    {% if editMode %}
+                    Modifier
+                    {% else %}
+                    Créer
+                    {% endif %}
+                </button>
+            </div>
+        {{ form_end(CreateTaskForm) }}
+    </section>
 {% endblock %}

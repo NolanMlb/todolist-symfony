@@ -14,8 +14,7 @@ class HomeController extends AbstractController {
         $user = $this -> getUser();
         $tasks = [];
         if ($user) {
-            $userId = $user -> getId();
-            $tasks = $taskRepository->findBy(['user' => $userId]);
+            $tasks = $taskRepository->findBy(['user' => $user]);
         }
         return $this->render('index.html.twig', [
             'tasks' => $tasks,

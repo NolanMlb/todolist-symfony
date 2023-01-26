@@ -8,69 +8,66 @@
 {% endblock %}
 
 {% block body %}
-    <section class="container-fluid">
-        {% if app.user %}
-        <div class="row">
-            <div class="col">
-                Mes tâches
+    {% if app.user %}
+        <section class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h2>Mes tâches</h2>
+                </div>
+                <div class="col-3">
+                    <a href={{ path("app_add_task") }} class="text-danger"><i class="fa fa-plus me-2 text-black"></i>Ajouter une tâche</a>
+                </div>
             </div>
-            <div class="col-3">
-                <a href={{ path("app_add_task") }}><i class="fa fa-plus me-2"></i>Ajouter une tâche</a>
-            </div>
-        </div>
-        {% else %}
 
-        <div class="text-center">
+            {% if tasks|length > 0 %}
+                <div class="container text-center">
+                    <table class="table mb-0">
+                    <thead>
+                        <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Date de fin</th>
+                        <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr class="fw-normal">
+                        <td>
+                            <div class="row">
+                                {% if task.image %}
+                                    <div class="col-auto">
+                                        <img src="{{ asset('/uploads/tasks/' ~ task.image) }}"
+                                        class="shadow-1-strong rounded-circle" alt="avatar 1"
+                                        style="width: 55px; height: 55px;">
+                                    </div>
+                                {% endif %}
+                                <div class="col">
+                                    <div class="ms-2 mb-2">{{ task.name }}</div>
+                                    <div class="ms-2">{{ task.description }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <span>{{ task.status }}</span>
+                        </td>
+                        <td class="align-middle">
+                            <h6 class="mb-0"><span class="badge bg-danger">{{ task.endDate|date('d/m/Y') }}</span></h6>
+                        </td>
+                        <td class="align-middle">
+                            <a href={{ path('app_edit_task', {'id': task.id}) }} data-mdb-toggle="tooltip" title="Edit" class="mx-2"><i class="bi bi-pencil"></i></a>
+                            <a href={{ path('app_delete_task', {'id': task.id}) }} data-mdb-toggle="tooltip" title="Remove"><i class="bi bi-trash3"></i></a>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </section>
+    {% else %}
+        <div class="content d-flex justify-content-center align-items-center">
             Pour commencer à gérer vos tâches, vous devez créer un compte ou vous connecter. 
         </div>
-        {% endif %}
-
-        {% if tasks|length > 0 %}
-        <div class="container text-center">
-            <table class="table mb-0">
-              <thead>
-                <tr>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Statut</th>
-                  <th scope="col">Date de fin</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for task in tasks %}
-                <tr class="fw-normal">
-                  <td>
-                    <div class="row">
-                        {% if task.image %}
-                            <div class="col-auto">
-                                <img src="{{ asset('/uploads/tasks/' ~ task.image) }}"
-                                class="shadow-1-strong rounded-circle" alt="avatar 1"
-                                style="width: 55px; height: 55px;">
-                            </div>
-                        {% endif %}
-                        <div class="col">
-                            <div class="ms-2 mb-2">{{ task.name }}</div>
-                            <div class="ms-2">{{ task.description }}</div>
-                        </div>
-                    </div>
-                  </td>
-                  <td class="align-middle">
-                    <span>{{ task.status }}</span>
-                  </td>
-                  <td class="align-middle">
-                    <h6 class="mb-0"><span class="badge bg-danger">{{ task.endDate|date('d/m/Y') }}</span></h6>
-                  </td>
-                  <td class="align-middle">
-                    <a href="#!" data-mdb-toggle="tooltip" title="Edit" class="mx-2"><i class="bi bi-pencil"></i></a>
-                    <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i class="bi bi-trash3"></i></a>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-        </div>
-        {% endif %}
-
-        </div>
-    </section>
+    {% endif %}
 {% endblock %}
