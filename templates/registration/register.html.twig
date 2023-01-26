@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+                <h2>Faisons-connaissance</h2>
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.username, {'label': false,'attr': {'placeholder': 'Username*'}} ) }}
+                    {{ form_row(registrationForm.email, {'label': false,'attr': {'placeholder': 'email*'}} ) }}
+                    {{ form_row(registrationForm.plainPassword, {'attr': {'placeholder': 'Password*'}}) }}
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        Inscription
+                    </button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </section>
+        
+        
+{% endblock %}

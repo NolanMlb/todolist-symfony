@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="h3 mb-3 font-weight-normal">Créez une nouvelle tâche</h1>
+            {{ form_start(CreateTaskForm) }}
+                {{ form_row(CreateTaskForm.name, {'label': false,'attr': {'placeholder': 'Nom*'}} ) }}
+                {{ form_row(CreateTaskForm.description, {'label': false,'attr': {'placeholder': 'Description*'}} ) }}
+                {{ form_row(CreateTaskForm.status, {'label': false }) }}
+                {{ form_row(CreateTaskForm.image, {'label': false, 'multipart': true, 'required': false }) }}
+                {{ form_row(CreateTaskForm.end_date, {'label': false, 'attr': {'placeholder': 'Date de fin de validité*'}}) }}
+                <button type="submit" class="btn btn-lg btn-primary">
+                    Créer
+                </button>
+            {{ form_end(CreateTaskForm) }}
+        </div>
+    </div>
+</section>
+{% endblock %}

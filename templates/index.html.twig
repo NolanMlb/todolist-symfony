@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}OpenTodo - Accueil
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col">
+                Mes tâches
+            </div>
+            <div class="col-3">
+                <a href={{ path("app_add_task") }}><i class="fa fa-plus me-2"></i>Ajouter une tâche</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
