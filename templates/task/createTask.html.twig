@@ -12,7 +12,7 @@
                 {{ form_row(CreateTaskForm.description, {'label': false,'attr': {'placeholder': 'Description*'}} ) }}
                 {{ form_row(CreateTaskForm.status, {'label': false }) }}
                 {{ form_row(CreateTaskForm.image, {'label': false, 'multipart': true, 'required': false }) }}
-                {{ form_row(CreateTaskForm.end_date, {'label': false, 'attr': {'placeholder': 'Date de fin de validité*'}}) }}
+                {{ form_row(CreateTaskForm.endDate, {'label': false, 'attr': {'placeholder': 'Date de fin de validité*'}}) }}
                 <button type="submit" class="btn btn-lg btn-primary">
                     Créer
                 </button>

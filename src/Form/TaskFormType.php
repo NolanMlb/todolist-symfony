@@ -32,7 +32,7 @@ class TaskFormType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('end_date')
+            ->add('endDate')
         ;
     }
 

@@ -25,6 +25,7 @@
         "@popperjs/core": "^2.11.6",
         "autoprefixer": "^10.4.13",
         "bootstrap": "^5.2.3",
+        "bootstrap-icons": "^1.10.3",
         "bootstrap-next": "^1.0.5",
         "postcss-loader": "^7.0.2"
     }

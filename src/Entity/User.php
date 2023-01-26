@@ -37,7 +37,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(type: Types::JSON)]
     private $roles = [];
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Task::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class, orphanRemoval: true)]
     private Collection $tasks;
 
     public function getId(): ?int
@@ -162,7 +162,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         if (!$this->tasks->contains($task)) {
             $this->tasks->add($task);
-            $task->setUserId($this);
+            $task->setUser($this);
         }
 
         return $this;
@@ -172,8 +172,8 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         if ($this->tasks->removeElement($task)) {
             // set the owning side to null (unless already changed)
-            if ($task->getUserId() === $this) {
-                $task->setUserId(null);
+            if ($task->getUser() === $this) {
+                $task->setUser(null);
             }
         }
 
