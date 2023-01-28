@@ -9,12 +9,12 @@
 
 {% block body %}
     {% if app.user %}
-        <section class="container-fluid">
-            <div class="row">
-                <div class="col">
+        <section class="container-fluid mt-3">
+            <div class="row ms-3 mb-5">
+                <div class="col ms-4">
                     <h2>Mes tâches</h2>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <a href={{ path("app_add_task") }} class="text-danger"><i class="fa fa-plus me-2 text-black"></i>Ajouter une tâche</a>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                                 {% endif %}
                                 <div class="col">
                                     <div class="ms-2 mb-2">{{ task.name }}</div>
-                                    <div class="ms-2">{{ task.description }}</div>
+                                    <div class="ms-2 fw-lighter fst-italic">{{ task.description }}</div>
                                 </div>
                             </div>
                         </td>
