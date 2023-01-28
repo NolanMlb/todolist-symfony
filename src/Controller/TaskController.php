@@ -16,6 +16,7 @@ class TaskController extends AbstractController
     #[Route('/task/{id}/edit', name: 'app_edit_task')]
     public function addTask(Task $task = null, Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Check if we should edit or create a task
         if (!$task) {
             $task = new Task();
         }
@@ -27,18 +28,19 @@ class TaskController extends AbstractController
             $image = $form->get('image')->getData();
             if ($image) {
                 $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-                //on copie le fichier dans le dossier uploads
+                //We copy the file in uploads folder
                 $image -> move(
                     $this->getParameter('tasks_directory'),
                     $fichier
                 );
                 $task -> setImage($fichier);
             }
+            // Set the user that create the task and add in the db
             $task -> setUser($this -> getUser());
             $entityManager->persist($task);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
+            // Redirection to home page
             return $this->redirectToRoute("app_index");
         }
         return $this->render('task/createTask.html.twig', [
@@ -50,19 +52,28 @@ class TaskController extends AbstractController
     #[Route('/task/{id}/delete', name: 'app_delete_task')]
     public function deleteTask($id, EntityManagerInterface $entityManager)
     {
-        // Récupérer la tâche à partir de la base de données en utilisant l'ID fourni en paramètre
+        // Get the task from db with ID in parameters
         $task = $entityManager->getRepository(Task::class)->find($id);
 
-        // Vérifier si la tâche existe
+        // Check if task exists
         if (!$task) {
             throw $this->createNotFoundException('La tâche n\'existe pas');
         }
 
-        // Supprimer la tâche de la base de données
-        $entityManager->remove($task);
-        $entityManager->flush();
+        // Delete task from db and file from uploads folder
+        try {
+            $entityManager->remove($task);
+            $entityManager->flush();
+            $file = $task -> getImage();
+            if ($file) {
+                unlink($this->getParameter('tasks_directory').'/'.$file);
+            }
+            $this -> addFlash('success', 'La tâche a été supprimée avec succès.');
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Une erreur est survenue lors la suppression de la tâche');
+        }
 
-        // Rediriger l'utilisateur vers la page de liste des tâches
+
         return $this->redirectToRoute('app_index');
     }
 }

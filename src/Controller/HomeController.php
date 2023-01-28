@@ -11,8 +11,10 @@ class HomeController extends AbstractController {
     
     #[Route('/', name: 'app_index')]
     public function index(TaskRepository $taskRepository) {
+        // get User logged on
         $user = $this -> getUser();
-        $tasks = [];
+        $tasks = null;
+        // if user, we get his tasks
         if ($user) {
             $tasks = $taskRepository->findBy(['user' => $user]);
         }

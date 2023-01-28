@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            {% if tasks|length > 0 %}
+            {% if tasks %}
                 <div class="container text-center">
                     <table class="table mb-0">
                     <thead>
@@ -64,6 +64,12 @@
                     </table>
                 </div>
             {% endif %}
+            {% for message in app.flashes('success') %}
+                <div class="fixed-bottom mb-3 mx-3 alert alert-success mb-0">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('danger') %}
+                <div class="fixed-bottom mb-3 mx-3 alert alert-success">{{ message }}</div>
+            {% endfor %}
         </section>
     {% else %}
         <div class="content d-flex justify-content-center align-items-center">
