@@ -26,6 +26,6 @@ final class Version20230128132931 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE task RENAME INDEX idx_527edb25a76ed395 TO tasks_fk_1');
+        // $this->addSql('ALTER TABLE task RENAME INDEX idx_527edb25a76ed395 TO tasks_fk_1');
     }
 }

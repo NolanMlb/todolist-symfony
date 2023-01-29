@@ -20,12 +20,12 @@ final class Version20230126104141 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE task RENAME INDEX tasks_fk_1 TO IDX_527EDB25A76ED395');
+        // $this->addSql('ALTER TABLE task RENAME INDEX tasks_fk_1 TO IDX_527EDB25A76ED395');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE task RENAME INDEX idx_527edb25a76ed395 TO tasks_fk_1');
+        // $this->addSql('ALTER TABLE task RENAME INDEX idx_527edb25a76ed395 TO tasks_fk_1');
     }
 }
